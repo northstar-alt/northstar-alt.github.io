@@ -10,7 +10,7 @@
     <style>
       :root {
         --bg: #14110f;
-        --surface: #556b2f;
+        --surface: #1b1714;
         --surface-2: #211c18;
         --line: #2d2620;
         --text: #f2ede4;
@@ -25,11 +25,11 @@
         --body: 'Inter', sans-serif;
       }
 
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
       
-      html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-      body {
+    body {
         background: var(--bg);
         color: var(--text);
         font-family: var(--body);
@@ -37,21 +37,21 @@
         font-size: 16px;
       }
 
-      a { color: var(--accent); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      a:focus-visible, button:focus-visible {
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
 
-      @media (prefers-reduced-motion: reduce) {
+    @media (prefers-reduced-motion: reduce) {
         * { animation: none !important; transition: none !important; }
       }
 
       /* -------- prompt bar --------- */
-      .promptbar {
+    .promptbar {
         border-bottom: 1px solid var(--line);
-        background: var(--surace);
+        background: var(--surface);
         padding: 10px 24px;
         font-family: var(--mono);
         font-size: 13px;
@@ -63,8 +63,8 @@
         top: 0;
         z-index: 10;
       }
-      .promptbar .who { color: var(--accent); }
-      .cursor {
+    .promptbar .who { color: var(--accent); }
+    .cursor {
         display: inline-block;
         width: 7px;
         height: 14px;
@@ -72,11 +72,256 @@
         margin-left: 4px;
         animation: blink 1.1s steps(2, start) infinite;
       }
-      @keyframes blink { to { visibility: hidden; } }
+    @keyframes blink { to { visibility: hidden; } }
 
       /*--------- layout shell ---------*/
-      main {
-        
-      
-    </style>
-  </head>
+    main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 64px 24px 100px;
+      }
+
+    section{ margin-bottom: 72px; }
+    section:last-child { margin-bottom: 0; }
+
+    .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.08rem;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-bottom: 14px;
+      }
+    .eyebrow::before { content: "-- "; color: var(--line); }
+
+  /* ---------- hero record ---------- */
+  .record {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .record-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .record-row:last-child { border-bottom: none; }
+  .record-key {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    padding: 16px 18px;
+    border-right: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .record-val {
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+  .record-val.name {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--status);
+    margin-right: 8px;
+    box-shadow: 0 0 0 3px var(--status-soft);
+  }
+
+  .bio {
+    margin-top: 22px;
+    color: var(--text-dim);
+    font-size: 16px;
+    max-width: 58ch;
+  }
+
+  /* ---------- project tables ---------- */
+  .table {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    margin-bottom: 22px;
+  }
+  .table-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .table-name {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--status-soft);
+    color: var(--status);
+    white-space: nowrap;
+  }
+  .table-body { padding: 18px 20px; }
+  .field-grid {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 10px 0;
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .field-grid dt {
+    font-family: var(--mono);
+    color: var(--text-faint);
+  }
+  .field-grid dd { color: var(--text-dim); }
+  .table-body p {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .table-link {
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .table-link::before { content: "→ "; }
+
+  /* secondary (smaller) records for internships */
+  .minirow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .minirow-left { display: flex; flex-direction: column; gap: 2px; }
+  .minirow-org {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .minirow-role {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .minirow-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    align-self: center;
+  }
+
+  /* ---------- about ---------- */
+  .about-text {
+    font-size: 16px;
+    color: var(--text-dim);
+    max-width: 60ch;
+    margin-bottom: 18px;
+  }
+  .taglist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 9px;
+  }
+
+  /* ---------- footer / contact ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .record-row { grid-template-columns: 110px 1fr; }
+    .record-val.name { font-size: 22px; }
+    main { padding: 48px 18px 80px; }
+    section { margin-bottom: 56px; }
+  }
+</style>
+</head>
+  <body>
+    <div class="promptbar">
+      <span class="who">shaniamakuvire</span>=# \d portfolio<span class="cursor"></span>
+    </div>
+
+    <main>
+
+      <!-- HERO -->
+      <section id=="top">
+        <div class="record">
+          <div class="record-row">
+            <div class="record-key">name</div>
+            <div class="record-value name">Shania Makuvire <span style="color:var(--text-faint); font-size:16px; font-family:var(--mono);">(North Star)</span></div>
+          </div>
+          <div class="record-row">
+            <div class="record-key">field</div>
+            <div class="record-val">Biotechnology &amp; Bioinformatics</div>
+          </div>
+          <div class="record-row">
+            <div class="record-key">studying at</div>
+            <div class="record-val">Midlands State University - Dept. of Applied Biosciences &amp; Biotechnology</div>
+          </div>
+        </div>
+
+        <p class="bio">
+          I work on genomic infrastructure, right now that means building a national genomic database prototype for Zimbabwe from the schema up. This page is a record of what I've built and where I've worked, not a sales pitch.
+        </p>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="eyebrow">projects</div>
+
+        <div class="table">
+          <div class="table-head">
+            <div class="table-name">ZNGD - Zimbabwe National Genomic Database</div>
+            <div class="pill">in development</div>
+          </div>
+          <div class="table-body">
+            <dl class="field-grid">
+              <dt>stack</dt><dd>PostgreSQL . Python (BioPython/Entrez) . R . SQL - all self-taught, picked up to build this specifically</dd>
+              <dt>scope</dt><dd>9-table schema, NCBI ingestion, QC validation, submission &amp; review workflow with audit logging</dd>
+              <dt>context</dt><dd>An independent project, built on my own time and initiative, not coursework, not university-affiliated</dd>
+            </dl>
+            <p>
+              A working prototype for a national genomic data system: it pulls sequence data in automatically, checks it against quality standards before its accepeted, and keeps a full audit trail of who submitted and reviewed what. Still early, built to prove that the concept is sound, not a finished production system. Submitted as my project for the Millenium Fellowship.
+            </p>
+            <a class="table-link" href="https://github.com/northstar-alt/prototype" target="_blank" rel="noopener">view the repo on GitHub
+            </a>
+            
+    </main>
+  </body>
